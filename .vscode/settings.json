@@ -1,6 +1,7 @@
 {
-  "eslint.alwaysShowStatus": true,
-  "prettier.bracketSameLine": false,
-  "editor.suggestLineHeight": 0,
-  "editor.formatOnSaveMode": "file"
+    "eslint.alwaysShowStatus": true,
+    "prettier.bracketSameLine": false,
+    "editor.suggestLineHeight": 0,
+    "editor.formatOnSaveMode": "file",
+    "java.compile.nullAnalysis.mode": "automatic"
 }

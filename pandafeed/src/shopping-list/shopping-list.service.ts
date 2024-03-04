@@ -17,17 +17,16 @@ export class ShoppingListService {
     return await shoppingList.save();
   }
   // ensureShoppingList() is a method that returns a Promise<ShoppingList> get or create a shopping list
-  ensureShoppingList() {
-    return ShoppingList.findOneBy({ done: false }).then((shoppingList) => {
-      if (!shoppingList) {
-        const shoppingList = new ShoppingList();
-        shoppingList.date = new Date();
-        shoppingList.done = false;
-        shoppingList.products = [];
-        return shoppingList.save();
-      }
-      return shoppingList;
-    });
+  async ensureShoppingList() {
+    const shoppingList = await ShoppingList.findOneBy({ done: false });
+    if (!shoppingList) {
+      const shoppingList_1 = new ShoppingList();
+      shoppingList_1.date = new Date();
+      shoppingList_1.done = false;
+      shoppingList_1.products = [];
+      return shoppingList_1.save();
+    }
+    return shoppingList;
   }
 
   async findAll(): Promise<ShoppingList[]> {
