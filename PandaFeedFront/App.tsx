@@ -1,32 +1,32 @@
-import React from 'react';
-import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import Logo from './assets/PandaFEED.png';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 
+import Home from './src/Screens/Home';
+import ShoppingList from './src/Features/ShoppingList/ShoppingList';
+import Products from './src/Features/Products/Products';
+
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+
+export type AuthRootParamList = {
+  Home: undefined;
+  ShoppingList: undefined;
+  Products: undefined;
+};
+
+const BottomTab = createMaterialBottomTabNavigator<AuthRootParamList>();
 const App = () => {
   return (
-    <SafeAreaView>
-      <View style={styles.root}>
-        <Image
-          style={[styles.Logo, {height: 1750 * 0.3}]}
-          resizeMode="contain"
-          source={Logo}
-        />
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <BottomTab.Navigator
+        initialRouteName="Home"
+        barStyle={{backgroundColor: '#382933'}}
+        activeColor="#79F1a4">
+        <BottomTab.Screen name="Home" component={Home} />
+        <BottomTab.Screen name="ShoppingList" component={ShoppingList} />
+        <BottomTab.Screen name="Products" component={Products} />
+      </BottomTab.Navigator>
+    </NavigationContainer>
   );
 };
-const styles = StyleSheet.create({
-  root: {
-    alignItems: 'center',
-    padding: 20,
-    flex: 1,
-    backgroundColor: '#8AC997',
-  },
 
-  Logo: {
-    width: '70%',
-    height: 175,
-    maxHeight: 200,
-  },
-});
 export default App;

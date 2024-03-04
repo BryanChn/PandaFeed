@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ShoppingListService } from 'src/shopping-list/shopping-list.service';
-import { ShoppingProduct } from 'src/shopping-product/entities/shopping-product.entity';
+import { ShoppingListService } from './../shopping-list/shopping-list.service';
+import { ShoppingProduct } from './../shopping-product/entities/shopping-product.entity';
 
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -53,6 +53,26 @@ export class ProductsService {
         product.minimum = updateProductDto.minimum;
         product.essential = updateProductDto.essential;
 
+        return product.save();
+      })
+      .then((product) => {
+        if (product.quantity <= product.minimum) {
+          if (product.essential === true) {
+            this.SendAlert();
+          }
+          if (product.essential === false) {
+            this.SendNotification();
+          }
+          return this.addToLastShoppingList(product);
+        }
+
+        return product;
+      });
+  }
+  updateQuantity(id: number, updateProductDto: UpdateProductDto) {
+    return Product.findOne({ where: { id } })
+      .then((product) => {
+        product.quantity = updateProductDto.quantity;
         return product.save();
       })
       .then((product) => {

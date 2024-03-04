@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateShoppingProductDto } from './dto/create-shopping-product.dto';
 import { UpdateShoppingProductDto } from './dto/update-shopping-product.dto';
+import { ShoppingProduct } from './entities/shopping-product.entity';
 
 @Injectable()
 export class ShoppingProductService {
@@ -8,8 +9,8 @@ export class ShoppingProductService {
     return 'This action adds a new shoppingProduct';
   }
 
-  findAll() {
-    return `This action returns all shoppingProduct`;
+  findAll(): Promise<ShoppingProduct[]> {
+    return ShoppingProduct.find();
   }
 
   findOne(id: number) {
