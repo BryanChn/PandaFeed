@@ -11,7 +11,9 @@ describe('ShoppingProductController', () => {
       providers: [ShoppingProductService],
     }).compile();
 
-    controller = module.get<ShoppingProductController>(ShoppingProductController);
+    controller = module.get<ShoppingProductController>(
+      ShoppingProductController,
+    );
   });
 
   it('should be defined', () => {
