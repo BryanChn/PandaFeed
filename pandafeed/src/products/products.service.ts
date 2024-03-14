@@ -46,48 +46,6 @@ export class ProductsService {
     });
   }
 
-  // update(id: number, updateProductDto: UpdateProductDto) {
-  //   return Product.findOne({ where: { id } })
-  //     .then((product) => {
-  //       product.quantity = updateProductDto.quantity;
-  //       product.minimum = updateProductDto.minimum;
-  //       product.essential = updateProductDto.essential;
-
-  //       return product.save();
-  //     })
-  //     .then((product) => {
-  //       // Vérifier d'abord si le produit est essentiel ET si sa quantité est inférieure ou égale au minimum requis
-  //       if (product.essential === true && product.quantity <= product.minimum) {
-  //         this.SendAlert();
-  //         return this.addToLastShoppingList(product);
-  //       } else if (product.essential === false) {
-  //         // Pour les produits non essentiels, vous pouvez décider ici si une notification doit être envoyée
-  //         this.SendNotification();
-  //       }
-
-  //       return product;
-  //     });
-  // }
-  // updateQuantity(id: number, updateProductDto: UpdateProductDto) {
-  //   return Product.findOne({ where: { id } })
-  //     .then((product) => {
-  //       product.quantity = updateProductDto.quantity;
-  //       return product.save();
-  //     })
-  //     .then((product) => {
-  //       if (product.quantity <= product.minimum) {
-  //         if (product.essential === true) {
-  //           this.SendAlert();
-  //         }
-  //         if (product.essential === false) {
-  //           this.SendNotification();
-  //         }
-  //         return this.addToLastShoppingList(product);
-  //       }
-
-  //       return product;
-  //     });
-  // }
   updateProductQuantityAndHandleShoppingList(
     id: number,
     updateProductDto: UpdateProductDto,
@@ -99,7 +57,7 @@ export class ProductsService {
         return product.save();
       })
       .then((product) => {
-        if (product.essential === true && product.quantity < product.minimum) {
+        if (product.essential === true && product.quantity <= product.minimum) {
           this.SendAlert();
           return this.addToLastShoppingList(product);
         }
